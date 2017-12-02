@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog 
+xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext 
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd 
+http://www.liquibase.org/xml/ns/dbchangelog 
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="KO (generated)" id="1512243968072-1">
+        <createTable tableName="branch">
+            <column name="id" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-2">
+        <createTable tableName="comment">
+            <column autoIncrement="true" name="id" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="task_id" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="datetime(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contents" type="VARCHAR(300)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-3">
+        <createTable tableName="klient">
+            <column autoIncrement="true" name="id" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-4">
+        <createTable tableName="projekt">
+            <column name="id" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="branch_id" type="VARCHAR(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)"/>
+            <column name="klient_id" type="INT UNSIGNED"/>
+            <column name="salesman_id" type="INT UNSIGNED"/>
+            <column name="type" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-5">
+        <createTable tableName="task">
+            <column autoIncrement="true" name="id" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="project_id" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ordered_by_id" type="INT UNSIGNED"/>
+            <column name="executed_by_id" type="INT UNSIGNED"/>
+            <column name="requested_on" type="TIMESTAMP(19)"/>
+            <column name="deadline" type="TIMESTAMP(19)"/>
+            <column name="finished_on" type="TIMESTAMP(19)"/>
+            <column name="structure_element" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="work_type" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="work_description" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-6">
+        <createTable tableName="task_relationship">
+            <column name="parent_task" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="child_taks" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-7">
+        <createTable tableName="task_status">
+            <column autoIncrement="true" name="id" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column name="task_id" type="INT UNSIGNED">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="CURRENT_TIMESTAMP" name="change_time" type="TIMESTAMP(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-8">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="INT UNSIGNED">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(45)"/>
+            <column name="surname" type="VARCHAR(45)"/>
+            <column name="function" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-9">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="branch"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-10">
+        <addPrimaryKey columnNames="id" constraintName="PRIMARY" tableName="projekt"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-11">
+        <addPrimaryKey columnNames="parent_task, child_taks" constraintName="PRIMARY" tableName="task_relationship"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-12">
+        <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="klient"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-13">
+        <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="projekt"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-14">
+        <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="task"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-15">
+        <addUniqueConstraint columnNames="id" constraintName="id_UNIQUE" tableName="user"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-16">
+        <addUniqueConstraint columnNames="id" constraintName="id_task_status_UNIQUE" tableName="task_status"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-17">
+        <addUniqueConstraint columnNames="id" constraintName="idbranch_UNIQUE" tableName="branch"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-18">
+        <createIndex indexName="fk_branch_id_idx" tableName="projekt">
+            <column name="branch_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-19">
+        <createIndex indexName="fk_child_task_id_idx" tableName="task_relationship">
+            <column name="child_taks"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-20">
+        <createIndex indexName="fk_executed_by_id_idx" tableName="task">
+            <column name="executed_by_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-21">
+        <createIndex indexName="fk_in_task_status_task_id" tableName="task_status">
+            <column name="task_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-22">
+        <createIndex indexName="fk_in_task_status_user_id" tableName="task_status">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-23">
+        <createIndex indexName="fk_klient_id_idx" tableName="projekt">
+            <column name="klient_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-24">
+        <createIndex indexName="fk_ordered_by_id_idx" tableName="task">
+            <column name="ordered_by_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-25">
+        <createIndex indexName="fk_project_id_idx" tableName="task">
+            <column name="project_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-26">
+        <createIndex indexName="fk_salesman_id_idx" tableName="projekt">
+            <column name="salesman_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-27">
+        <createIndex indexName="fk_task_id_idx" tableName="comment">
+            <column name="task_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-28">
+        <createIndex indexName="fk_user_id_idx" tableName="comment">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-29">
+        <addForeignKeyConstraint baseColumnNames="branch_id" baseTableName="projekt" constraintName="fk_branch_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="branch"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-30">
+        <addForeignKeyConstraint baseColumnNames="child_taks" baseTableName="task_relationship" constraintName="fk_child_task_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="task"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-31">
+        <addForeignKeyConstraint baseColumnNames="executed_by_id" baseTableName="task" constraintName="fk_executed_by_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-32">
+        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="task_status" constraintName="fk_in_task_status_task_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="task"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-33">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="task_status" constraintName="fk_in_task_status_user_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-34">
+        <addForeignKeyConstraint baseColumnNames="klient_id" baseTableName="projekt" constraintName="fk_klient_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="klient"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-35">
+        <addForeignKeyConstraint baseColumnNames="ordered_by_id" baseTableName="task" constraintName="fk_ordered_by_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-36">
+        <addForeignKeyConstraint baseColumnNames="parent_task" baseTableName="task_relationship" constraintName="fk_parent_task_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="task"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-37">
+        <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="task" constraintName="fk_project_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="projekt"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-38">
+        <addForeignKeyConstraint baseColumnNames="salesman_id" baseTableName="projekt" constraintName="fk_salesman_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-39">
+        <addForeignKeyConstraint baseColumnNames="task_id" baseTableName="comment" constraintName="fk_task_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="task"/>
+    </changeSet>
+    <changeSet author="KO (generated)" id="1512243968072-40">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="comment" constraintName="fk_user_id" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user"/>
+    </changeSet>
+</databaseChangeLog>
