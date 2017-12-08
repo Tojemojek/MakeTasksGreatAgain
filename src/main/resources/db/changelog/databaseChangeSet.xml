@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="KO" id="creationOfAllTablesAndConstrains">
+    <changeSet author="KO" id="creationOfTablesPart1" runInTransaction="true">
         <createTable schemaName="mtgadb"
                      tableName="mtga_customer">
             <column name="id" type="int" autoIncrement="true">
@@ -33,6 +33,9 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
             </column>
             <column name="name" type="VARCHAR(50)"/>
         </createTable>
+    </changeSet>
+
+    <changeSet author="KO" id="creationOfTablesPart2">
 
         <createTable schemaName="mtgadb"
                      tableName="mtga_project">
@@ -135,8 +138,6 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
             <column name="change_time" type="DATETIME"/>
             <column name="task_status" type="VARCHAR(50)"/>
         </createTable>
-
     </changeSet>
-
 
 </databaseChangeLog>
