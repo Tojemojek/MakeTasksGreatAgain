@@ -6,7 +6,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="KO" id="creationOfTablesPart1" runInTransaction="true">
+    <changeSet author="KO" id="creationOfTables" runInTransaction="true">
         <createTable schemaName="mtgadb"
                      tableName="mtga_customer">
             <column name="id" type="int" autoIncrement="true">
@@ -14,7 +14,6 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
             </column>
             <column name="name" type="VARCHAR(100)"/>
         </createTable>
-
 
         <createTable schemaName="mtgadb"
                      tableName="mtga_user">
@@ -33,9 +32,6 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
             </column>
             <column name="name" type="VARCHAR(50)"/>
         </createTable>
-    </changeSet>
-
-    <changeSet author="KO" id="creationOfTablesPart2">
 
         <createTable schemaName="mtgadb"
                      tableName="mtga_project">
@@ -43,24 +39,12 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="branch_id" type="VARCHAR(3)">
-                <constraints nullable="false"
-                             foreignKeyName="fk_in_project_branch_id"
-                             referencedTableName="mtga_branch"
-                             referencedColumnNames="id"/>
             </column>
             <column name="name" type="VARCHAR(50)"/>
             <column name="type" type="VARCHAR(100)"/>
             <column name="customer_id" type="INT">
-                <constraints nullable="true"
-                             foreignKeyName="fk_in_project_customer_id"
-                             referencedTableName="mtga_customer"
-                             referencedColumnNames="id"/>
             </column>
             <column name="salesman_id" type="INT">
-                <constraints nullable="true"
-                             foreignKeyName="fk_in_project_salesman_id"
-                             referencedTableName="mtga_user"
-                             referencedColumnNames="id"/>
             </column>
         </createTable>
 
@@ -70,22 +54,11 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="project_id" type="VARCHAR(6)">
-                <constraints nullable="false"
-                             foreignKeyName="fk_in_task_project_id"
-                             referencedTableName="mtga_project"
-                             referencedColumnNames="id"/>
+                <constraints nullable="false"/>
             </column>
             <column name="ordered_by_id" type="INT">
-                <constraints nullable="true"
-                             foreignKeyName="fk_in_task_ordered_by_id"
-                             referencedTableName="mtga_user"
-                             referencedColumnNames="id"/>
             </column>
             <column name="executed_by_id" type="INT">
-                <constraints nullable="true"
-                             foreignKeyName="fk_in_task_executed_by_id"
-                             referencedTableName="mtga_user"
-                             referencedColumnNames="id"/>
             </column>
             <column name="requested_on" type="DATETIME"/>
             <column name="must_be_made_before" type="DATETIME"/>
@@ -103,16 +76,8 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                 <constraints primaryKey="true" nullable="false" unique="true"/>
             </column>
             <column name="task_id" type="INT">
-                <constraints nullable="false"
-                             foreignKeyName="fk_in_comment_task_id"
-                             referencedTableName="mtga_task"
-                             referencedColumnNames="id"/>
             </column>
             <column name="user_id" type="INT">
-                <constraints nullable="false"
-                             foreignKeyName="fk_in_comment_user_id"
-                             referencedTableName="mtga_user"
-                             referencedColumnNames="id"/>
             </column>
             <column name="creation_date" type="DATETIME"/>
             <column name="contents" type="VARCHAR(255)"/>
@@ -124,20 +89,120 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="task_id" type="INT">
-                <constraints nullable="false"
-                             foreignKeyName="fk_in_task_status_history_task_id"
-                             referencedTableName="mtga_task"
-                             referencedColumnNames="id"/>
             </column>
             <column name="user_id" type="INT">
-                <constraints nullable="false"
-                             foreignKeyName="fk_in_task_status_history_user_id"
-                             referencedTableName="mtga_user"
-                             referencedColumnNames="id"/>
             </column>
             <column name="change_time" type="DATETIME"/>
             <column name="task_status" type="VARCHAR(50)"/>
         </createTable>
+    </changeSet>
+
+
+    <changeSet author="KO" id="creationOfForeignKeys" runInTransaction="true">
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_project"
+                                 baseColumnNames="branch_id"
+
+                                 constraintName="fk_in_project_branch_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_branch"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_project"
+                                 baseColumnNames="salesman_id"
+
+                                 constraintName="fk_in_project_salesman_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_user"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_task"
+                                 baseColumnNames="project_id"
+
+                                 constraintName="fk_in_task_project_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_project"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_task"
+                                 baseColumnNames="ordered_by_id"
+
+                                 constraintName="fk_in_task_ordered_by_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_user"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_task"
+                                 baseColumnNames="executed_by_id"
+
+                                 constraintName="fk_in_task_executed_by_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_user"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                                                                                   baseTableName="mtga_comment"
+                                                                                                   baseColumnNames="task_id"
+
+                                                                                                   constraintName="fk_in_comment_task_id"
+
+                                                                                                   referencedTableSchemaName="mtgadb"
+                                                                                                   referencedColumnNames="id"
+                                                                                                   referencedTableName="mtga_task"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_comment"
+                                 baseColumnNames="user_id"
+
+                                 constraintName="fk_in_comment_user_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_user"/>
+
+
+
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_task_status_history"
+                                 baseColumnNames="task_id"
+
+                                 constraintName="fk_in_task_status_history_task_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_task"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_task_status_history"
+                                 baseColumnNames="user_id"
+
+                                 constraintName="fk_in_task_status_history_user_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_user"/>
+
+        <addForeignKeyConstraint baseTableSchemaName="mtgadb"
+                                 baseTableName="mtga_project"
+                                 baseColumnNames="customer_id"
+
+                                 constraintName="fk_in_project_customer_id"
+
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="customer_user"/>
+
+
     </changeSet>
 
 </databaseChangeLog>
