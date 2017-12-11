@@ -61,7 +61,7 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
             <column name="executed_by_id" type="INT">
             </column>
             <column name="requested_on" type="DATETIME"/>
-            <column name="must_be_made_before" type="DATETIME"/>
+            <column name="must_be_made_before" type="DATE"/>
             <column name="finished_on" type="DATETIME"/>
             <column name="structure_element" type="VARCHAR(50)"/>
             <column name="work_type" type="VARCHAR(50)"/>
@@ -150,14 +150,14 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                                  referencedTableName="mtga_user"/>
 
         <addForeignKeyConstraint baseTableSchemaName="mtgadb"
-                                                                                                   baseTableName="mtga_comment"
-                                                                                                   baseColumnNames="task_id"
+                                 baseTableName="mtga_comment"
+                                 baseColumnNames="task_id"
 
-                                                                                                   constraintName="fk_in_comment_task_id"
+                                 constraintName="fk_in_comment_task_id"
 
-                                                                                                   referencedTableSchemaName="mtgadb"
-                                                                                                   referencedColumnNames="id"
-                                                                                                   referencedTableName="mtga_task"/>
+                                 referencedTableSchemaName="mtgadb"
+                                 referencedColumnNames="id"
+                                 referencedTableName="mtga_task"/>
 
         <addForeignKeyConstraint baseTableSchemaName="mtgadb"
                                  baseTableName="mtga_comment"
@@ -168,8 +168,6 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
                                  referencedTableSchemaName="mtgadb"
                                  referencedColumnNames="id"
                                  referencedTableName="mtga_user"/>
-
-
 
 
         <addForeignKeyConstraint baseTableSchemaName="mtgadb"
@@ -200,9 +198,64 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
                                  referencedTableSchemaName="mtgadb"
                                  referencedColumnNames="id"
-                                 referencedTableName="customer_user"/>
+                                 referencedTableName="mtga_customer"/>
 
 
     </changeSet>
+
+    <changeSet author="KO" id="smallCorrections" runInTransaction="true">
+
+        <addNotNullConstraint schemaName="mtgadb"
+                              tableName="mtga_branch"
+                              columnName="name"
+                              columnDataType="VARCHAR(100)"
+                              />
+
+        <addNotNullConstraint schemaName="mtgadb"
+                              tableName="mtga_customer"
+                              columnName="name"
+                              columnDataType="VARCHAR(100)"
+        />
+
+        <addNotNullConstraint schemaName="mtgadb"
+                              tableName="mtga_user"
+                              columnName="name"
+                              columnDataType="VARCHAR(50)"
+        />
+
+        <addNotNullConstraint schemaName="mtgadb"
+                              tableName="mtga_user"
+                              columnName="role"
+                              columnDataType="VARCHAR(50)"
+        />
+
+        <addNotNullConstraint schemaName="mtgadb"
+                              tableName="mtga_project"
+                              columnName="branch_id"
+                              columnDataType="VARCHAR(3)"
+        />
+
+        <addNotNullConstraint schemaName="mtgadb"
+                              tableName="mtga_comment"
+                              columnName="creation_date"
+                              columnDataType="DATETIME"
+        />
+
+        <addNotNullConstraint schemaName="mtgadb"
+                              tableName="mtga_comment"
+                              columnName="contents"
+                              columnDataType="VARCHAR(255)"
+        />
+
+        <addNotNullConstraint schemaName="mtgadb"
+                              tableName="mtga_comment"
+                              columnName="user_id"
+                              columnDataType="INT"
+        />
+
+
+
+    </changeSet>
+
 
 </databaseChangeLog>

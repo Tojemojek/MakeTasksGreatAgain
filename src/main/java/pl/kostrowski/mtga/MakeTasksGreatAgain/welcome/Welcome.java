@@ -1,4 +1,4 @@
-package pl.kostrowski.mtga.MakeTasksGreatAgain.firstTry;
+package pl.kostrowski.mtga.MakeTasksGreatAgain.welcome;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
