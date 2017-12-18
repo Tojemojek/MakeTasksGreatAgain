@@ -1,16 +1,13 @@
-package pl.kostrowski.mtga.MakeTasksGreatAgain;
+package pl.kostrowski.mtga.MakeTasksGreatAgain.springjpa;
 
-import org.aspectj.lang.annotation.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.kostrowski.mtga.MakeTasksGreatAgain.model.Branch;
-import pl.kostrowski.mtga.MakeTasksGreatAgain.springjpa.BranchRespository;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @RunWith(SpringRunner.class)
@@ -33,10 +30,15 @@ public class BranchRepositoryTest {
         branchRespository.save(b1);
         branchRespository.save(b2);
 
-        System.out.println(branchRespository.findByName("Warszawa"));
+        Branch testBranch = branchRespository.findByName("Warszawa");
 
+        assertThat(testBranch.getName()).isNotEmpty()
+                .isEqualTo("Warszawa")
+                .isNotEqualTo("Gdańsk");
 
-
+        assertThat(testBranch.getId()).isNotEmpty()
+                .isEqualTo("286")
+                .isNotEqualTo("299");
     }
 
 }
