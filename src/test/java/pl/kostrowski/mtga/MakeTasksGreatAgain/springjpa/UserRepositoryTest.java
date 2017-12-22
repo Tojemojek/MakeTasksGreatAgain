@@ -4,12 +4,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.kostrowski.mtga.MakeTasksGreatAgain.model.User;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
+@SpringBootTest
 @DataJpaTest
 public class UserRepositoryTest {
 
@@ -23,7 +25,6 @@ public class UserRepositoryTest {
         testUser1.setName("Jan");
         testUser1.setSurname("Kowalski");
         testUser1.setRole("uberMaster");
-
 
         userRepository.save(testUser1);
 

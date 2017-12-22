@@ -1,8 +1,17 @@
 package pl.kostrowski.mtga.MakeTasksGreatAgain.model;
 
-import pl.kostrowski.mtga.MakeTasksGreatAgain.springjpa.BranchRespository;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+/**
+ * <h1>The simpliest class ever</h1>
+ * It has only two fields where <br>
+ * {@code id} should be string made of 3 digits and <br>
+ * {@code name} should be name of city where branch is.
+ *  @author Krzysztof Ostrowski
+ */
 
 @Entity
 @Table(name = "mtga_branch")

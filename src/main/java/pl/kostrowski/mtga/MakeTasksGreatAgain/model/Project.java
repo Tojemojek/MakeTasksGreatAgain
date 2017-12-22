@@ -1,6 +1,21 @@
 package pl.kostrowski.mtga.MakeTasksGreatAgain.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * <h1>Project</h1>
+ * First class that have more interesting features <br>
+ * {@code id} is a String and should be made of 6 digits<br>
+ * {@code name and type} will hopefully be a descriptive texts<br>
+ * {@code salesman} will be one of users with specified role<br>
+ * @see Customer
+ * @see User
+ *
+ * @author Krzysztof Ostrowski
+ */
+
 
 @Entity
 @Table(name = "mtga_project")
@@ -28,6 +43,8 @@ public class Project {
     @JoinColumn(name="salesman_id")
     private User salesman;
 
+    @OneToMany(mappedBy = "mtga_project", cascade = CascadeType.ALL)
+    private List<Task> tasks = new ArrayList<Task>();
 
     public String getId() {
         return id;

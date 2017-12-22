@@ -3,6 +3,15 @@ package pl.kostrowski.mtga.MakeTasksGreatAgain.model;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+
+/**
+ * <h1>Comment</h1>
+ * Here every single user will be able to share ideas about task
+ * {@code id} is auto-generated integer <br>
+ * {@code contents} is a place to share ideas and thoughts <br>
+ * @author Krzysztof Ostrowski
+ */
+
 @Entity
 @Table(name = "mtga_comment")
 public class Comment {

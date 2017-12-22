@@ -4,6 +4,14 @@ import org.hibernate.annotations.Generated;
 
 import javax.persistence.*;
 
+/**
+ * <h1>Customers info </h1>
+ * It has only two fields where
+ * {@code id} is auto-generated integer <br>
+ * {@code name} should be descriptive name of customer <br>
+ * @author Krzysztof Ostrowski
+ */
+
 @Entity
 @Table(name = "mtga_customer")
 public class Customer {
