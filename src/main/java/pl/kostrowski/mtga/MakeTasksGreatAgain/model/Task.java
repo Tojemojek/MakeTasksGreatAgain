@@ -1,5 +1,7 @@
 package pl.kostrowski.mtga.MakeTasksGreatAgain.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,12 +30,15 @@ public class Task {
     private Integer id;
 
     @Column(name = "requested_on")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalDateTime requestedOn;
 
     @Column(name = "must_be_made_before")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate mustBeMadeBefore;
 
     @Column(name = "finished_on")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     private LocalDateTime finishedOn;
 
     @Column(name = "structure_element")
