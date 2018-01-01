@@ -4,11 +4,9 @@ package pl.kostrowski.mtga.spring;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.kostrowski.mtga.MakeTasksGreatAgain.model.Project;
-
-import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,24 +14,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class SpringAnnotationContextTest {
 
     @Test
-    public void testXmlContext() {
+    public void testAnnotationContext() {
+        ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringAnnotationConfig.class);
 
-        ApplicationContext context = new ClassPathXmlApplicationContext(
-                "beans\\beans.xml");
+        Project projectFromBeans = (Project)ctx.getBean("project");
 
-        Project projectFromXml = (Project) context.getBean("nowaStacja");
-
-        assertThat(projectFromXml.getName()).isEqualTo("Nowa Stacja");
-        assertThat(projectFromXml.getBranch().getName()).isEqualTo("Warszawa");
-
-        System.out.println(projectFromXml);
-
-        ((ClassPathXmlApplicationContext) context).close();
+        assertThat(projectFromBeans.getName()).isEqualTo("Nowa Stacja");
+        assertThat(projectFromBeans.getBranch().getName()).isEqualTo("Warszawa");
 
     }
-
-    LocalDateTime ld = LocalDateTime.parse("2017-11-15 12:22:11");
-
-
 
 }
