@@ -3,6 +3,7 @@ gitignore
 **/.idea
 **/target
 **/MojeNotatkiPrywatne
+**/Archiwum
 *.iml
 
 
