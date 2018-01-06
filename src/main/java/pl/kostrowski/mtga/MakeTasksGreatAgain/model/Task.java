@@ -30,7 +30,7 @@ public class Task {
     private Integer id;
 
     @Column(name = "requested_on")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime requestedOn;
 
     @Column(name = "must_be_made_before")
@@ -38,7 +38,7 @@ public class Task {
     private LocalDate mustBeMadeBefore;
 
     @Column(name = "finished_on")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime finishedOn;
 
     @Column(name = "structure_element")

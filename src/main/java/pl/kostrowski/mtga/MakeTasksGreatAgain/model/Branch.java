@@ -17,7 +17,6 @@ import javax.persistence.Table;
 @Table(name = "mtga_branch")
 public class Branch {
 
-
     @Id
     @Column(name = "id", unique = true, nullable = false)
     private String id;

@@ -43,7 +43,7 @@ public class Project {
     @JoinColumn(name="salesman_id")
     private User salesman;
 
-    @OneToMany(mappedBy = "mtga_project", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     private List<Task> tasks = new ArrayList<Task>();
 
     public String getId() {
