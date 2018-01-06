@@ -93,4 +93,12 @@ public class Project {
     public void setSalesman(User salesman) {
         this.salesman = salesman;
     }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
 }
